@@ -1,0 +1,30 @@
+{
+    "name": "github-graphql-cli",
+    "version": "0.1.5",
+    "description": "GitHub v4 GraphQL CLI client written in NodeJS",
+    "main": "index.js",
+    "scripts": {
+        "lint": "npx eslint src"
+    },
+    "author": "Milan Adamovsky <milan@stepweb.com> (http://www.stepweb.com)",
+    "license": "ISC",
+    "dependencies": {
+        "graphql-request": "^1.8.2",
+        "prettier": "^1.15.3",
+        "yargs": "^12.0.5"
+    },
+    "devDependencies": {
+        "eslint": "^5.11.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stepweb/github.git"
+    },
+    "keywords": [
+        "graphql",
+        "cli",
+        "github",
+        "v4",
+        "nodejs"
+    ]
+}

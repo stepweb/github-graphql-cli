@@ -1,0 +1,93 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+
+    "rules": {
+        "array-bracket-spacing": [
+            "error",
+            "always"
+        ],
+
+        "arrow-spacing": "error",
+
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+
+        "curly": "error",
+
+        "indent": [
+            "error",
+            4,
+            {
+                "ArrayExpression": 1,
+                "ImportDeclaration": 1,
+                "MemberExpression": 1,
+                "ObjectExpression": 1,
+                "SwitchCase": 1
+            }
+        ],
+
+        "key-spacing": [
+            "error",
+            {
+                "beforeColon": false
+            }
+        ],
+
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+
+        "padded-blocks": [
+            "error",
+            "never"
+        ],
+
+        "padding-line-between-statements": [
+            "error",
+            {
+                "blankLine": "always",
+                "prev": "block-like",
+                "next": "*"
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "block-like"
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "return"
+            }
+        ],
+
+        "prefer-template": "error",
+
+        "quotes": [
+            "error",
+            "single"
+        ],
+
+        "semi": [
+            "error",
+            "always"
+        ],
+
+        "template-curly-spacing": ["error", "always"]
+    }
+}

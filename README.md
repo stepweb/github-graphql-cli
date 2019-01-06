@@ -27,12 +27,22 @@ The configurations are javascript files so if you prefer to configure dot env fi
 
 - [GitHub Documentation](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
 
+## Bash Alias
+
+To reduce the likelihood of name collision, we use the longer name `github-graphql-cli` for the CLI command.  We highly recommend to make a bash alias if you will use this tool frequently.
+
+In your `.bash_profile` (or `.bashrc`) simply add this line:
+
+```
+alias gh="github-graphql-cli"
+```
+
 # Usage
 
 Assuming our repo is `https://github.com/stepweb/github.git` and we want to get information about PR _123_, we would do something like:
 
 ```
-node index.js -o stepweb -r github pullRequest 1 \
+github-graphql-cli -o stepweb -r github pullRequest 1 \
     --fields.body --fields.author.login --fields.number
 ```
 
@@ -51,7 +61,7 @@ This would give us the following output:
 For automation one could use something like `jq` to parse the JSON, or if one follows a _minimal dependency_ approach, one can parse the JSON without `jq` as such in bash:
 
 ```
-node index.js -o stepweb -r github pullRequest 1 \
+github-graphql-cli -o stepweb -r github pullRequest 1 \
     --fields.body \
     | sed "s/\'/\\\'/g" \
     | sed "s/\\\n//g" \
@@ -83,10 +93,10 @@ It can then easily be chained with other commands.
 If we want to get the `pullRequestId` for a `mergePullRequest` command, we could do something like this (assuming our pull request number is _1_):
 
 ```
-node index.js -o stepweb -r github pullRequest 1 \
+github-graphql-cli -o stepweb -r github pullRequest 1 \
     --fields.id \
     | json id \
-    | xargs -I % node index.js -o stepweb -r github mergePullRequest % \
+    | xargs -I % github-graphql-cli -o stepweb -r github mergePullRequest % \
         --fields.pullRequest.merged
 ```
 

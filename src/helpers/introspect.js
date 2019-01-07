@@ -8,13 +8,16 @@ const introspectInputs = async ({ personalToken, mutationName }, overrides) => {
                     name
                     type {
                         name
+                        ofType {
+                          name
+                        }
                     }
                 }
             }
         }`);
 
     const types = introspect.__type.inputFields.reduce((accumulator, input) => {
-        accumulator[`$${ input.name }`] = input.type.name;
+        accumulator[`$${ input.name }`] = input.type.name || input.type.ofType.name;
 
         return accumulator;
     }, {});

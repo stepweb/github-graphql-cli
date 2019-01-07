@@ -26,5 +26,8 @@
         "github",
         "v4",
         "nodejs"
-    ]
+    ],
+    "bin": {
+        "github-graphql-cli": "./index.js"
+    }
 }

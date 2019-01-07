@@ -1,5 +1,7 @@
 # GitHub GraphQL CLI
 
+[![](https://img.shields.io/gitter/room/stepweb/github-graphql-cli.svg)](https://gitter.im/github-graphql-cli/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link) 
+
 GitHub GraphQL CLI is a highly versatile CLI tool written entirely in NodeJS that interacts with GitHub's v4 GraphQL API.
 
 The motivation behind this project is to help with CLI automation where one can _easily_ chain it with other CLI tools.

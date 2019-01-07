@@ -1,7 +1,7 @@
-const environment = process.env.NODE_ENV || 'dev';
-
-const config = require(`./${ environment }`);
+const {
+    GITHUB_TOKEN: personalToken
+} = process.env;
 
 module.exports = {
-    config
+    personalToken
 };

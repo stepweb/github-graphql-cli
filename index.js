@@ -3,7 +3,7 @@
 const yargs = require('yargs');
 
 const {
-    config: { personalToken }
+    personalToken
 } = require('./src/config');
 
 const {

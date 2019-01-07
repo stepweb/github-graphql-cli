@@ -21,9 +21,9 @@ npm install -g github-graphql-cli
 
 # Configuration
 
-A `personalToken` must be setup in GitHub and then copied into `config/dev.js`.
+A `personalToken` must be setup in GitHub and then set it as an environment variables called `GITHUB_TOKEN`.
 
-The configurations are javascript files so if you prefer to configure dot env files, it is trivial to wire a `.env` file to hydrate this config file.
+*Important* Without this token this tool will not work.  Do NOT skip this step.
 
 - [GitHub Documentation](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
 

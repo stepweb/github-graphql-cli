@@ -43,6 +43,6 @@ exports.handlerFactory = command => async (argv) => {
         });
 
     if (result) {
-        console.log(result);
+        console.log(JSON.stringify(result, ' ', 2));
     }
 };

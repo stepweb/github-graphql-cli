@@ -20,7 +20,7 @@ const sanitize = ({ inputs, variables }) => {
 
     const inputsObject = keys.reduce(reducer, {});
 
-    const variableOutput = JSON.stringify(inputsObject, ' ', 4)
+    const variableOutput = JSON.stringify(inputsObject)
         .replace(/"/g, '');
 
     if (!variables) {
@@ -31,7 +31,9 @@ const sanitize = ({ inputs, variables }) => {
 };
 
 const valueReducer = ({ inputs, variables }) => (accumulator, key) => {
-    accumulator[key] = `${ inputs[key] }`;
+    if (typeof inputs[key] !== 'object') {
+        accumulator[key] = `${ inputs[key] }`;
+    }
 
     return accumulator;
 };

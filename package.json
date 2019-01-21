@@ -1,6 +1,6 @@
 {
     "name": "github-graphql-cli",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "GitHub v4 GraphQL CLI client written in NodeJS",
     "main": "index.js",
     "scripts": {

@@ -21,6 +21,6 @@ module.exports = (mutationName) => ({
     variables
 }) =>
     format(`mutation ${ handleVariables({ inputs, variables }) } {
-        ${ mutationName }(input: ${ sanitizeInputs({ inputs, variables }).sanitized })
+        ${ mutationName }(input: ${ sanitizeInputs({ inputs, variables }) })
             ${ sanitizeFields(fields) }
     }`);

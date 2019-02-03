@@ -101,15 +101,21 @@ We use _inputs_ to pass arguments to mutations as well.
 
 It is that simple.
 
-### Examples
+# Examples
 
+## Queries
 - [Fetch the number of issues in a repository](./examples/count_repo_issues.sh)
-- [Create a pull request](./examples/create_pull_request.sh)
 - [Export project issues](./examples/export_project_issues.sh)
 - [Find an issue by title](./examples/find_issue_by_title.sh)
 - [Fetch a GitHub project name](./examples/get_project_name.sh)
 - [Fetch number of pull requests](./examples/get_pull_request_count.sh)
 - [Fetch the id of a pull request](./examples/get_pull_request_id.sh)
+- [Get user's name](./examples/get_user_name.sh)
+- [Get viewer name](./examples/get_viewer_name.sh)
+
+## Mutations
+- [Create an issue](./examples/create_issue.sh)
+- [Create a pull request](./examples/create_pull_request.sh)
 - [Merge a pull request](./examples/merge_pull_request.sh)
 
 Open the script you want to run and you will be able to derive what parameters you need to give it.

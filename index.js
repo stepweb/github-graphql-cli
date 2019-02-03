@@ -24,6 +24,10 @@ const {
             personalToken
         })
         .commandDir('src/commands/')
+        .option('dry', {
+            alias: 'd',
+            describe: 'Prints out GraphQL command without running it'
+        })
         .option('owner', {
             alias: 'o',
             demandOption: true,

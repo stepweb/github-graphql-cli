@@ -1,3 +1,5 @@
+const util = require('util');
+
 const include = (inputs) => inputs
     ? { inputs }
     : {};
@@ -20,12 +22,8 @@ const sanitize = ({ inputs, variables }) => {
 
     const inputsObject = keys.reduce(reducer, {});
 
-    const variableOutput = JSON.stringify(inputsObject)
-        .replace(/"/g, '');
-
-    if (!variables) {
-        return variableOutput.replace(/: ([^,\n]+)(,?)/g, ': "$1"$2');
-    }
+    const variableOutput = util.inspect(inputsObject)
+        .replace(/'/g, '"');
 
     return variableOutput;
 };

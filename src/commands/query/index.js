@@ -20,6 +20,7 @@ exports.handler = () => {
 
 exports.handlerFactory = command => async (argv) => {
     const {
+        dry,
         fields,
         inputs,
         owner: ownerName,
@@ -34,8 +35,16 @@ exports.handlerFactory = command => async (argv) => {
         includeFields(fields),
         includeInputs(inputs));
 
+    const gql = query(command)(queryOptions);
+
+    if (dry) {
+        console.log(gql);
+
+        return;
+    }
+
     const result = await github.connect({ personalToken })
-        .request(query(command)(queryOptions))
+        .request(gql)
         .catch(({ response: { errors } }) => {
             errors.forEach(({ message }) =>
                 error(message)

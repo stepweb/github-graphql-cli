@@ -11,7 +11,7 @@ function fetch_issues() {
         setCursor="--inputs.issues.after=$afterCursor"
     fi
 
-    local output=$(node index.js -o $1 -r $2 query repository \
+    local output=$(github-graphql-cli -o $1 -r $2 query repository \
         --inputs.owner $1 --inputs.name $2 \
         --inputs.issues.first 100 \
         $setCursor \

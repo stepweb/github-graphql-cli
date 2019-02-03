@@ -16,6 +16,10 @@ const handleVariables = ({
         : '';
 
 const handleInputs = ({ inputs, fields, variables }, inputsAccumulator) => {
+    if (!fields) {
+        throw 'Error: No fields were specified\n';
+    }
+
     const sanitizedInput = sanitizeInputs({ inputs, variables }).replace(/^{|}$/g, '');
 
     const args = sanitizedInput

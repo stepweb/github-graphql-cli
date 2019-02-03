@@ -1,6 +1,6 @@
 # GitHub GraphQL CLI
 
-[![](https://img.shields.io/gitter/room/stepweb/github-graphql-cli.svg)](https://gitter.im/github-graphql-cli/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link) 
+[![](https://img.shields.io/gitter/room/stepweb/github-graphql-cli.svg)](https://gitter.im/github-graphql-cli/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
 GitHub GraphQL CLI is a highly versatile CLI tool written entirely in NodeJS that interacts with GitHub's v4 GraphQL API.
 
@@ -25,19 +25,10 @@ npm install -g github-graphql-cli
 
 A `personalToken` must be setup in GitHub and then set it as an environment variables called `GITHUB_TOKEN`.
 
-*Important* Without this token this tool will not work.  Do NOT skip this step.
+**Important**
+Without this token this tool will not work.  Do NOT skip this step.
 
 - [GitHub Documentation](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
-
-## Bash Alias
-
-To reduce the likelihood of name collision, we use the longer name `github-graphql-cli` for the CLI command.  We highly recommend to make a bash alias if you will use this tool frequently.
-
-In your `.bash_profile` (or `.bashrc`) simply add this line:
-
-```
-alias gh="github-graphql-cli"
-```
 
 # Usage
 
@@ -45,7 +36,9 @@ Assuming our repo is `https://github.com/stepweb/github.git` and we want to get 
 
 ```
 github-graphql-cli -o stepweb -r github pullRequest 1 \
-    --fields.body --fields.author.login --fields.number
+    --fields.body \
+    --fields.author.login \
+    --fields.number
 ```
 
 This would give us the following output:
@@ -59,36 +52,6 @@ This would give us the following output:
     }
 }
 ```
-
-For automation one could use something like `jq` to parse the JSON, or if one follows a _minimal dependency_ approach, one can parse the JSON without `jq` as such in bash:
-
-```
-github-graphql-cli -o stepweb -r github pullRequest 1 \
-    --fields.body \
-    | sed "s/\'/\\\'/g" \
-    | sed "s/\\\n//g" \
-    | sed "s/\\\r//g" \
-    | while read line; do printf "$line"; done \
-    | xargs -0 -n1 -I % node -e 'console.log(%.body)'
-```
-
-## JSON Bash Function
-
-The above can be written to a bash function `json`.  Simply add the code below into your `.bash_profile` or `.bashrc` file.
-
-```
-function json() {
-	sed "s/\'/\\\'/g" | \
-	sed "s/\\\n//g" | \
-	sed "s/\\\r//g" | \
-	while read line; do printf "$line"; done| \
-	xargs -0 -n1 -I % node -e "console.log(%.$1)"
-}
-```
-
-This file can also be found in [examples/json.sh](examples/json.sh).
-
-It can then easily be chained with other commands.
 
 ### Example Usage
 
@@ -104,17 +67,52 @@ github-graphql-cli -o stepweb -r github pullRequest 1 \
 
 Pretty neat.
 
-### Other Examples
+## Fields
 
-There are bash scripts in the [examples](./examples) folder.
+To specify what we want to select from the result set we use _fields_.
+
+Fields follow a dot notation that mirror the hierarchy of the schema.  This means if we go to GitHub's `repository` query (documentation)[https://developer.github.com/v4/object/repository/], at the bottom we see that we can query the field `isPrivate`.
+
+Using dot notation we would simply follow the path of the documentation:
+
+```
+--fields.isPrivate
+```
+
+Notice we don't have to specify the _query_ (e.g. repository) as part of our _fields_ selection since we already know the context.
+
+It is that simple.
+
+## Inputs
+
+Resolvers can take parameters, which we call _inputs_.  Anytime anything in GraphQL takes a parameter, similar to the _fields_, we use dot notation to mirror the schema.
+
+If we stay on GitHub's `repository` query (documentation)[https://developer.github.com/v4/object/repository/], we can see that `issue` takes a `number` argument.
+
+Using dot notation we would simply follow the path of the documentation:
+
+```
+--inputs.issue 123
+```
+
+Notice we don't have to specify the _query_ (e.g. repository) as part of our _fields_ selection since we already know the context.
+
+We use _inputs_ to pass arguments to mutations as well.
+
+It is that simple.
+
+### Examples
+
+- [Fetch the number of issues in a repository](./examples/count_repo_issues.sh)
+- [Create a pull request](./examples/create_pull_request.sh)
+- [Export project issues](./examples/export_project_issues.sh)
+- [Find an issue by title](./examples/find_issue_by_title.sh)
+- [Fetch a GitHub project name](./examples/get_project_name.sh)
+- [Fetch number of pull requests](./examples/get_pull_request_count.sh)
+- [Fetch the id of a pull request](./examples/get_pull_request_id.sh)
+- [Merge a pull request](./examples/merge_pull_request.sh)
 
 Open the script you want to run and you will be able to derive what parameters you need to give it.
-
-An example use would be:
-
-```
-bash examples/get_viewer_name.sh <userid> <repo>
-```
 
 # Supported APIs
 
@@ -128,6 +126,16 @@ This means that all the documentation of GitHub's GraphQL API _is_ the documenta
 - [Query](https://developer.github.com/v4/query/)
 
 Note that some of the APIs (e.g. `pullRequest`) are shortcut, convenience, or helper APIs, and in themselves are not first level methods of GitHub's official API.
+
+## Bash Alias
+
+To reduce the likelihood of name collision, we use the longer name `github-graphql-cli` for the CLI command.  We highly recommend to make a bash alias if you will use this tool frequently.
+
+In your `.bash_profile` (or `.bashrc`) simply add this line:
+
+```
+alias gh="github-graphql-cli"
+```
 
 # Contribute
 

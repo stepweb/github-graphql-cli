@@ -26,6 +26,7 @@ exports.handler = () => {
 
 exports.handlerFactory = command => async (argv) => {
     const {
+        dry,
         fields,
         inputs,
         owner: ownerName,
@@ -54,8 +55,16 @@ exports.handlerFactory = command => async (argv) => {
         includeInputs(inputs),
         includeTypeChecking(types && inputTypes));
 
+    const gql = mutation(command)(mutationOptions);
+
+    if (dry) {
+        console.log(gql);
+
+        return;
+    }
+
     const result = await github.connect({ personalToken })
-        .request(mutation(command)(mutationOptions), castInputs)
+        .request(gql, castInputs)
         .catch(({ response: { errors } }) => {
             errors.forEach(({ message }) =>
                 error(message)
